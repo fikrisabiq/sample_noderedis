@@ -1,22 +1,11 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
-const blogSchema = new mongoose.Schema({
-  owner: {
-    // user in the database
-    type: mongoose.Types.ObjectId,
-    required: true,
-    ref: 'User',
-  },
-  title: {
-    type: String,
-    required: true,
-  },
-  tags: {
-    type: [mongoose.Types.ObjectId],
-  },
-  blog: {
-    type: String,
-  },
+const bookSchema = new Schema({
+  title: String,
+  content: String,
+  createdAt: { type: Date, default: Date.now },
+  author: String
 });
 
-mongoose.model('Blog', blogSchema);
+mongoose.model("Book", bookSchema);
