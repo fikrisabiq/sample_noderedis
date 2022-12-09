@@ -18,7 +18,7 @@ client.on('connect', () => {
 });
 
 client.connect().then(() => {
-  client.get = util.promisify(client.get);
+  client.HGET = util.promisify(client.HGET);
   const exec = mongoose.Query.prototype.exec;
 
   mongoose.Query.prototype.cache = function (options = { time: 60 }) {
@@ -43,7 +43,7 @@ client.connect().then(() => {
     console.log(`key: ${key}`);
 
     console.log('menunggu cache value');
-    const cacheValue = await client.get(this.hashKey, key);
+    const cacheValue = await client.HGET(this.hashKey, key);
     console.log(`cachevalue: ${cacheValue}`);
 
     if (cacheValue) {
