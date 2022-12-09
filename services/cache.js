@@ -13,7 +13,7 @@ client
   .connect()
   .then(() => {
     console.log('berhasil tersambung');
-    client.hGet = util.promisify(client.hGet);
+    client.get = util.promisify(client.get);
     const exec = mongoose.Query.prototype.exec;
 
     mongoose.Query.prototype.cache = function (options = { time: 60 }) {
@@ -35,7 +35,7 @@ client
         ...this.getQuery(),
       });
 
-      const cacheValue = await client.hGet(this.hashKey, key);
+      const cacheValue = await client.get(this.hashKey, key);
 
       if (cacheValue) {
         const doc = JSON.parse(cacheValue);
