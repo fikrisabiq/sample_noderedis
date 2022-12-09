@@ -16,7 +16,7 @@ client
     client.get = util.promisify(client.get);
     const exec = mongoose.Query.prototype.exec;
 
-    mongoose.Query.prototype.cache = function (options = { time: 60 }) {
+    mongoose.Query.prototype.cache = function (options = { time: 5 }) {
       this.useCache = true;
       this.time = options.time;
       this.hashKey = JSON.stringify(
