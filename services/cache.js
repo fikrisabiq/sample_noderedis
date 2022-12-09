@@ -60,6 +60,10 @@ const util = require('util');
         : new this.model(doc);
     }
 
+    setTimeout(function () {
+      client.quit();
+    }, 3000);
+
     const result = await exec.apply(this, arguments);
     console.log(this.time);
     client.hset(this.hashKey, key, JSON.stringify(result));
