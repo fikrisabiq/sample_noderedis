@@ -44,6 +44,7 @@ client.connect().then(() => {
 
     console.log('menunggu cache value');
     console.log(this.hashKey);
+    console.log(this.getQuery());
     const cacheValue = await client.HGET(this.hashKey, key);
     console.log(`cachevalue: ${cacheValue}`);
 
