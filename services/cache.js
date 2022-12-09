@@ -12,6 +12,7 @@ const client = redis.createClient({
 client
   .connect()
   .then(() => {
+    console.log('berhasil tersambung');
     client.hGet = util.promisify(client.hGet);
     const exec = mongoose.Query.prototype.exec;
 
