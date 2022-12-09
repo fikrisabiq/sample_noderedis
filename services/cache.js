@@ -21,24 +21,29 @@ client.connect().then(() => {
   client.get = util.promisify(client.get);
   const exec = mongoose.Query.prototype.exec;
 
-  mongoose.Query.prototype.cache = function (options = { time: 5 }) {
+  mongoose.Query.prototype.cache = function (options = { time: 60 }) {
     this.useCache = true;
     this.time = options.time;
     this.hashKey = JSON.stringify(options.key || this.mongooseCollection.name);
 
     return this;
   };
+  console.log('query protype cache');
 
   mongoose.Query.prototype.exec = async function () {
     if (!this.useCache) {
+      console.log('query exec');
       return await exec.apply(this, arguments);
     }
+    console.log('ava');
 
     const key = JSON.stringify({
       ...this.getQuery(),
     });
+    console.log(`key: ${key}`);
 
     const cacheValue = await client.get(this.hashKey, key);
+    console.log(`cachevalue: ${cacheValue}`);
 
     if (cacheValue) {
       const doc = JSON.parse(cacheValue);
