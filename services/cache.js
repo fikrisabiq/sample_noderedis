@@ -18,6 +18,8 @@ const util = require('util');
     console.log('Redis connected');
   });
 
+  await client.connect();
+
   client.HGET = util.promisify(client.HGET);
   const exec = mongoose.Query.prototype.exec;
 
