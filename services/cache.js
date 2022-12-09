@@ -45,9 +45,6 @@ mongoose.Query.prototype.exec = async function () {
   console.log(this.hashKey);
   // await client.HSET('keras', 'field1', 'horas');
   console.log(this.getQuery());
-  setTimeout(function () {
-    client.quit();
-  }, 3000);
   const cacheValue = await client.HGET(this.hashKey, key);
   console.log(`cachevalue: ${cacheValue}`);
 
