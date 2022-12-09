@@ -46,7 +46,7 @@ const util = require('util');
 
     console.log('menunggu cache value');
     console.log(this.hashKey);
-    await client.hset('key', 'value');
+    await client.HSET('key', 'value');
     console.log(this.getQuery());
     const cacheValue = await client.HGET(this.hashKey, key);
     console.log(`cachevalue: ${cacheValue}`);
