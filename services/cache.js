@@ -42,6 +42,7 @@ client.connect().then(() => {
     });
     console.log(`key: ${key}`);
 
+    console.log('menunggu cache value');
     const cacheValue = await client.get(this.hashKey, key);
     console.log(`cachevalue: ${cacheValue}`);
 
