@@ -15,11 +15,12 @@ const util = require('util');
   client.HGET = util.promisify(client.HGET);
   const exec = mongoose.Query.prototype.exec;
 
-  mongoose.Query.prototype.cache = function (options = { time: 60 * 60 }) {
+  mongoose.Query.prototype.cache = function (options = { time: 60 }) {
     this.useCache = true;
-    this.time = options.time;
+    this.time = 60;
     this.hashKey = JSON.stringify(options.key || this.mongooseCollection.name);
     console.log(this.time);
+    console.log(options);
 
     return this;
   };
