@@ -17,7 +17,7 @@ const util = require('util');
 
   mongoose.Query.prototype.cache = function (options = { time: 60 }) {
     this.useCache = true;
-    this.time = options.time;
+    this.time = 60;
     this.hashKey = JSON.stringify(options.key || this.mongooseCollection.name);
 
     return this;
