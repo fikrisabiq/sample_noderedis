@@ -17,8 +17,8 @@ const util = require('util');
 
   mongoose.Query.prototype.cache = function (options = { time: 60 }) {
     this.useCache = true;
-    this.time = 60;
-    this.hashKey = JSON.stringify(options.key || this.mongooseCollection.name);
+    this.time = options.time;
+    this.hashKey = JSON.stringify(this.mongooseCollection.name);
     console.log(this.time);
     console.log(options);
 
@@ -30,9 +30,11 @@ const util = require('util');
       return await exec.apply(this, arguments);
     }
 
-    const key = JSON.stringify({
-      ...this.getQuery(),
-    });
+    // const key = JSON.stringify({
+    //   ...this.getQuery(),
+    // });
+
+    const key = 'bookCache';
 
     const cacheValue = await client.HGET(this.hashKey, key);
 
