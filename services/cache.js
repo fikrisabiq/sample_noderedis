@@ -20,7 +20,7 @@ const util = require('util');
     this.time = options.time;
     this.hashKey = JSON.stringify(options.key || this.mongooseCollection.name);
     console.log(this.time);
-    console.log(options.time);
+    console.log(options);
 
     return this;
   };
