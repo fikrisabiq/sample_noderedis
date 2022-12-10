@@ -10,16 +10,12 @@ const util = require('util');
     retry_strategy: () => 1000,
   });
 
-  client.on('error', function (err) {
-    console.error('Errro encountered: ', err);
-  });
-
   console.log('Redis connected');
 
   client.HGET = util.promisify(client.HGET);
   const exec = mongoose.Query.prototype.exec;
 
-  mongoose.Query.prototype.cache = function (options = { time: 120 }) {
+  mongoose.Query.prototype.cache = function (options = { time: 60 }) {
     this.useCache = true;
     this.time = options.time;
     this.hashKey = JSON.stringify(options.key || this.mongooseCollection.name);
