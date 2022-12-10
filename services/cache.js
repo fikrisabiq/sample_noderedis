@@ -19,6 +19,8 @@ const util = require('util');
     this.useCache = true;
     this.time = options.time;
     this.hashKey = JSON.stringify(options.key || this.mongooseCollection.name);
+    console.log(ths.time);
+    console.log(options.time);
 
     return this;
   };
@@ -32,7 +34,6 @@ const util = require('util');
       ...this.getQuery(),
     });
 
-    console.log(this.getQuery());
     const cacheValue = await client.HGET(this.hashKey, key);
 
     if (cacheValue) {
