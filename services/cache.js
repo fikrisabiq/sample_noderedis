@@ -20,7 +20,6 @@ const util = require('util');
     this.time = 60;
     this.hashKey = JSON.stringify(this.mongooseCollection.name);
     console.log(this.time);
-    console.log(options);
 
     return this;
   };
