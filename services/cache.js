@@ -22,26 +22,18 @@ const util = require('util');
 
     return this;
   };
-  console.log('query protype cache');
 
   mongoose.Query.prototype.exec = async function () {
     if (!this.useCache) {
-      console.log('query exec');
       return await exec.apply(this, arguments);
     }
-    console.log('ava');
 
     const key = JSON.stringify({
       ...this.getQuery(),
     });
-    console.log(`key: ${key}`);
 
-    console.log('menunggu cache value');
-    console.log(this.hashKey);
-    // await client.HSET('keras', 'field1', 'horas');
     console.log(this.getQuery());
     const cacheValue = await client.HGET(this.hashKey, key);
-    console.log(`cachevalue: ${cacheValue}`);
 
     if (cacheValue) {
       const doc = JSON.parse(cacheValue);
