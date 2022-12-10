@@ -15,7 +15,9 @@ const util = require('util');
   client.HGET = util.promisify(client.HGET);
   const exec = mongoose.Query.prototype.exec;
 
-  mongoose.Query.prototype.cache = function (options = { time: 60 }) {
+  mongoose.Query.prototype.cache = function (
+    options = { time: 60, makan: 50 }
+  ) {
     this.useCache = true;
     console.log(options);
     console.log(this.time);
