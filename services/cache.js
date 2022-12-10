@@ -17,10 +17,10 @@ const util = require('util');
 
   mongoose.Query.prototype.cache = function (options = { time: 60 }) {
     this.useCache = true;
+    console.log(options);
+    console.log(this.time);
     this.time = options.time;
     this.hashKey = JSON.stringify(options.key || this.mongooseCollection.name);
-    console.log(this.time);
-    console.log(options);
 
     return this;
   };
