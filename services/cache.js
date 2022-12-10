@@ -19,6 +19,7 @@ const util = require('util');
     this.useCache = true;
     this.time = options.time;
     this.hashKey = JSON.stringify(options.key || this.mongooseCollection.name);
+    console.log(this.time);
 
     return this;
   };
