@@ -16,6 +16,10 @@ module.exports = (app) => {
     res.status(200).json(books);
   });
 
+  app.get('/api/info',(req,res)=>{
+    res.status(200).end('Server1');
+  })
+  
   app.post('/api/books', async (req, res) => {
     const { title, content, author } = req.body;
 
