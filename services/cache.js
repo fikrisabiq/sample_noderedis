@@ -2,13 +2,13 @@ const mongoose = require('mongoose');
 const redis = require('redis');
 const util = require('util');
 
-const client = await redis.createClient({
+const client = redis.createClient({
   host: '192.168.56.54',
   port: 6379,
   retry_strategy: () => 1000,
 });
 
-const client2 = await redis.createClient({
+const client2 = redis.createClient({
   host: '192.168.56.55',
   port: 6379,
   retry_strategy: () => 1000,
