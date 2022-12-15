@@ -42,6 +42,7 @@ module.exports = (app) => {
   app.get('/api/deleteAll', async (req, res) => {
     try {
       await Book.deleteMany({});
+      clearKey(Book.collection.collectionName);
       res.status(200).json(deleteduser);
     } catch (error) {
       res.status(400).json(error);
@@ -80,6 +81,7 @@ module.exports = (app) => {
         { _id: req.params.id },
         { $set: book }
       );
+      clearKey(Book.collection.collectionName);
       res.status(200).json(updateuser);
     } catch (error) {
       res.status(400).json({ message: error.message });
@@ -89,6 +91,7 @@ module.exports = (app) => {
   app.delete('/api/books', async (req, res) => {
     try {
       const deleteduser = await Book.deleteOne({ _id: req.query.id });
+      clearKey(Book.collection.collectionName);
       res.status(200).json(deleteduser);
     } catch (error) {
       res.status(400).json(error);
