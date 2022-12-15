@@ -24,14 +24,10 @@ module.exports = (app) => {
   app.get('/api/generate', async (req, res) => {
     const total = req.query.total;
     for (let i = 0; i < total; i++) {
-      let judul = faker.hacker.phrase();
-      let isi = faker.lorem.paragraph();
-      let nama = faker.name.fullName;
-
       const book = new Book({
-        title: judul,
-        content: isi,
-        author: nama,
+        title: faker.hacker.phrase(),
+        content: faker.lorem.paragraph(),
+        author: faker.name.fullName,
       });
       try {
         await book.save();
