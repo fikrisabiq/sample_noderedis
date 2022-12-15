@@ -1,8 +1,13 @@
 const mongoose = require('mongoose');
 const { clearKey } = require('../services/cache');
 const Book = mongoose.model('Book');
+const faker = require('@faker-js/faker');
 
 module.exports = (app) => {
+  app.get('/api/info', async (req, res) => {
+    res.status(200).end('ServerX');
+  });
+  
   app.get('/api/books', async (req, res) => {
     let books;
     if (req.query.author) {
@@ -15,10 +20,29 @@ module.exports = (app) => {
 
     res.status(200).json(books);
   });
+  
+  app.get('/api/generate', async (req, res) => {
+    const total = req.query.total;
+    for (let i = 0; i < total; i++) {
+      let judul = faker.hacker.phrase();
+      let isi = faker.lorem.paragraph();
+      let nama = faker.name.fullName;
 
-  app.get('/api/info',(req,res)=>{
-    res.status(200).end('Server1');
-  })
+      const book = new Book({
+        title: judul,
+        content: isi,
+        author: nama,
+      });
+      try {
+        await book.save();
+      } catch (err) {
+        res.status(400).json(err);
+      }
+    }
+    clearKey(Book.collection.collectionName);
+
+    res.status(200).end('Success generate 100 books!!!');
+  });
   
   app.post('/api/books', async (req, res) => {
     const { title, content, author } = req.body;
