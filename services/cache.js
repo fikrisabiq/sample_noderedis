@@ -19,9 +19,9 @@ console.log('Redis connected');
 client2.HGET = util.promisify(client2.HGET);
 const exec = mongoose.Query.prototype.exec;
 
-mongoose.Query.prototype.cache = function () {
+mongoose.Query.prototype.cache = function (options = { time: 60 }) {
   this.useCache = true;
-  this.time = 60;
+  this.time = this.time;
   this.hashKey = JSON.stringify(this.mongooseCollection.name);
   console.log(this.time);
 
@@ -32,10 +32,6 @@ mongoose.Query.prototype.exec = async function () {
   if (!this.useCache) {
     return await exec.apply(this, arguments);
   }
-
-  // const key = JSON.stringify({
-  //   ...this.getQuery(),
-  // });
 
   const key = 'bookCache';
   const cacheValue = await client2.HGET(this.hashKey, key);
