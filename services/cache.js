@@ -48,7 +48,7 @@ const util = require('util');
 
     const result = await exec.apply(this, arguments);
     console.log(this.time);
-    client.hset(this.hashKey, key, JSON.stringify(result));
+    client.HSET(this.hashKey, key, JSON.stringify(result));
     client.expire(this.hashKey, this.time);
 
     console.log('Response from MongoDB');
