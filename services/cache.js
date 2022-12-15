@@ -19,7 +19,6 @@ const util = require('util');
   await client2.connect();
   console.log('Redis2 connected');
 
-  client2.HGET = util.promisify(client2.HGET);
   const exec = mongoose.Query.prototype.exec;
 
   mongoose.Query.prototype.cache = function () {
