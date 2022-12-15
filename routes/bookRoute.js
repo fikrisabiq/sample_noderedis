@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { clearKey } = require('../services/cache');
 const Book = mongoose.model('Book');
-const faker = require('@faker-js/faker');
+const { faker } = require('@faker-js/faker');
 
 module.exports = (app) => {
   app.get('/api/info', async (req, res) => {
