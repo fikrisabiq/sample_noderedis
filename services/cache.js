@@ -4,23 +4,20 @@ const util = require('util');
 
 (async () => {
   const client = redis.createClient({
-    host: '192.168.56.54',
-    port: 6379,
-    retry_strategy: () => 1000,
+    url: 'redis://192.168.56.54:6379',
   });
 
   const client2 = redis.createClient({
-    host: '192.168.56.55',
-    port: 6379,
-    retry_strategy: () => 1000,
+    url: 'redis://192.168.56.55:6379',
   });
 
   client.on('error', (err) => console.log('Redis Client Error', err));
   client2.on('error', (err) => console.log('Redis Client Error', err));
 
   await client.connect();
+  console.log('Redis1 connected');
   await client2.connect();
-  console.log('Redis connected');
+  console.log('Redis2 connected');
 
   client2.HGET = util.promisify(client2.HGET);
   const exec = mongoose.Query.prototype.exec;
