@@ -11,8 +11,8 @@ const util = require('util');
     url: 'redis://192.168.56.55:6379',
   });
 
-  client.on('error', (err) => console.log('Redis Client Error', err));
-  client2.on('error', (err) => console.log('Redis Client Error', err));
+  client.on('error', (err) => console.log('Redis Client Error 1', err));
+  client2.on('error', (err) => console.log('Redis Client Error 2', err));
 
   await client.connect();
   console.log('Redis1 connected');
