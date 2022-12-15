@@ -4,15 +4,21 @@ const util = require('util');
 // const keys = require("../config/keys");
 
 (async () => {
-  const client = redis.createClient({
-    host: 'localhost',
+  const client = await redis.createClient({
+    host: '192.168.56.54',
+    port: 6379,
+    retry_strategy: () => 1000,
+  });
+
+  const client2 = await redis.createClient({
+    host: '192.168.56.55',
     port: 6379,
     retry_strategy: () => 1000,
   });
 
   console.log('Redis connected');
 
-  client.HGET = util.promisify(client.HGET);
+  client2.HGET = util.promisify(client2.HGET);
   const exec = mongoose.Query.prototype.exec;
 
   mongoose.Query.prototype.cache = function () {
@@ -34,8 +40,7 @@ const util = require('util');
     // });
 
     const key = 'bookCache';
-
-    const cacheValue = await client.HGET(this.hashKey, key);
+    const cacheValue = await client2.HGET(this.hashKey, key);
 
     if (cacheValue) {
       const doc = JSON.parse(cacheValue);
