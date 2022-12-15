@@ -15,6 +15,8 @@ const util = require('util');
     retry_strategy: () => 1000,
   });
 
+  await client.connect_timeout();
+  await client2.connect_timeout();
   console.log('Redis connected');
 
   client2.HGET = util.promisify(client2.HGET);
