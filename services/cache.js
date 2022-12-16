@@ -54,10 +54,14 @@ const redis = require('redis');
     console.log('Response from MongoDB');
     return result;
   };
-
-  module.exports = {
-    clearKey(hashKey) {
-      client.del(JSON.stringify(hashKey));
-    },
-  };
 })();
+module.exports = {
+  clearKey: async (hashKey) => {
+    const client = redis.createClient({
+      url: 'redis://192.168.56.54:6379',
+    });
+
+    await client.connect();
+    client.del(JSON.stringify(hashKey));
+  },
+};
